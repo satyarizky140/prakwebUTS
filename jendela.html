@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    haloo
+    <div id="kosong"></div>
+    <div id="usia"></div>
+    <input type="submit" onclick="hitung()">
+</body>
+<script>
+    let urlParams = new URLSearchParams(window.location.search);
+    let nama = urlParams.get("nama");
+    let umur = urlParams.get("umur");
+    let elem = document.getElementById("kosong");
+    if (nama !== null && nama !== '') {
+        elem.innerHTML = "Nama " + nama;
+    } 
+
+    else {
+        elem.innerHTML = "Nama tidak tersedia";
+    }
+
+    function hitung(){
+    let urlParams = new URLSearchParams(window.location.search);
+    let nama = urlParams.get("nama");
+    let umur = urlParams.get("umur");
+    let elem = document.getElementById("usia");
+    if (umur < 10){
+        const para = document.createElement("p");
+        para.innerHTML = "HALLO DECK";
+        elem.appendChild(para);
+
+    }    
+    else{
+        elem.innerHTML = "HALLO " + nama;
+    }   
+    }
+</script>
+</html>

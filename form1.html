@@ -1,0 +1,259 @@
+<!--Nama : Muhammad Satya Rizky Saputa
+    NIM  : 2210512001-->
+    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease-in-out; /* Menambahkan transisi untuk animasi smooth */
+  opacity: 1; /* Mengatur opacity awal untuk animasi smooth */
+}
+
+.loader::after {
+  content: "";
+  width: 40px;
+  height: 40px;
+  border: 5px solid #333;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: loading 1s linear infinite, fade 0.5s ease-in-out; /* Menambahkan animasi fade */
+}
+
+@keyframes loading {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0; /* Opacity awal 0 untuk animasi smooth */
+  }
+  100% {
+    opacity: 1; /* Opacity akhir 1 untuk animasi smooth */
+  }
+}
+    body{
+        font-family: Arial, sans-serif;
+        width: 350px;
+        margin: 0;
+        padding: 20px;
+        margin-left: 500px;
+        background-color: grey;
+    }
+    header {
+        text-align: center;
+        color: white;
+        padding: 20px;
+        font-size: 16px;
+        background-color: blue;
+    }
+
+    main{
+        background: #ebebeb;
+    }
+
+
+    main div{
+        padding: 12px;
+    }
+
+    input{
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        border-width: 1px;
+        border-style: solid;
+        padding: 16px;
+        outline: 0;
+        font-family: inherit;
+        font-size: 0.95em;
+    }
+
+    select{
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        border-width: 1px;
+        border-style: solid;
+        padding: 16px;
+        outline: 0;
+        font-family: inherit;
+        font-size: 0.95em;
+    }
+
+    .tombol input:hover{
+        cursor: pointer;
+    }
+</style>
+<body>
+    <header>
+        <P>FORM PENGISIAN PEMINATAN KEAHLIAN
+            FAKULTAS ILMU KOMPUTER UPN VETERAN JAKARTA
+        </P>
+        <img src="upnvj.png" alt="" style="height: 40px; margin-left: 20px;">
+    </header>
+
+    <main>
+        <div class="form-group">
+            <input id="nim" type="text" placeholder="NIM Mahasiswa" required>
+        </div>
+
+        <div class="form-group">
+            <input id="nama" type="text" placeholder="Nama Mahasiswa" required>
+        </div>
+
+        <div class="form-group">
+            <input id="smt" type="text" placeholder="Semester Mahasiswa" required>
+        </div>
+
+        <div id="loader" class="loader"></div>
+
+        <div class="form-group">
+            <select name="" id="prodi" onchange="tampil()">
+                <option value="">Pilih Program Studi</option>
+                <option value="D3 SISTEM INFORMASI">D3 Sistem Informasi</option>
+                <option value="S1 SISTEM INFORMASI">S1 Sistem Informasi</option>
+                <option value="c">S1 Informatika</option>
+            </select>
+        </div>
+
+        <div class="peminatan" id="minat" style="display: none;">
+            <fieldset>
+                <legend>Peminatan</legend>
+                  <table>
+                      <tr>
+                          <td><label for="bd" id="p1">Mobile Programmer</label></td>
+                          <td><input class="p1" type="checkbox" id="mk" name="mk" value="Mobile Programer" /></td>
+                      </tr>
+                      <tr>
+                          <td><label for="pw" id="p2">Web Developer</label></td>
+                          <td><input class="p1" type="checkbox" id="mk" name="mk" value="Web Developer" /></td>
+                      </tr>
+                  </table>
+              </fieldset>
+        </div>
+
+        <div class="tombol">
+            <input type="button" value="submit" onclick="proses()" style="background-color: blue; color: white;"> <br>
+            <a href="UTS.html"><input type="button" value="Kembali ke Home" style="background-color: blue; color: white;"></a> 
+        </div>
+    </main>
+</body>
+
+<script>
+    function tampil(){
+        var data = document.getElementById("prodi").value;
+        var x = document.getElementById("minat");
+        if (data == "D3 SISTEM INFORMASI"){
+            document.getElementById("p1").innerHTML = "Mobile Programmer"
+            document.getElementById("p2").innerHTML = "Web Developer"
+            document.getElementsByClassName("p1")[0].value = "Mobile Programmer"
+            document.getElementsByClassName("p1")[1].value = "Web Developer"
+            x.style.display = "block";
+        }
+
+        else if (data == "S1 SISTEM INFORMASI"){
+            document.getElementById("p1").innerHTML = "Data Analyst"
+            document.getElementById("p2").innerHTML = "Audit"
+            document.getElementsByClassName("p1")[0].value = "Data Analyst"
+            document.getElementsByClassName("p1")[1].value = "Audit"
+            x.style.display = "block";
+        }
+        else{
+            x.style.display = "none";
+        }
+    }
+
+    function proses() {
+			var nim = document.getElementById("nim");
+			var nama = document.getElementById("nama");
+			var smt = document.getElementById("smt");
+			var prodi = document.getElementById("prodi");
+			var mk = [];
+			var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
+
+			for (var i = 0; i < checkboxes.length; i++) {
+			  mk.push(checkboxes[i].value);
+			}
+			
+			
+			var validasiAngka = /^[0-9]+$/;
+			var validasiHuruf = /^[a-zA-Z ]+$/;
+			
+			if(nim.value != "" && nama.value != "" && smt.value != "" && prodi.value != "" && mk != ""){
+                
+				if(nim.value.match(validasiAngka)){
+					if(nama.value.match(validasiHuruf)){
+						if(smt.value.match(validasiAngka) && smt.value > 2){
+							alert("Pengisian Berhasil!");
+							
+							
+							let url= "window.html?nim="+nim.value+"&nama="+nama.value+"&smt="+smt.value+"&prodi="+prodi.value+"&mk="+mk;
+							window.open(url, "_blank", "width=700,height=520" , 'menubar=yes, location=yes, status= yes');
+						}
+                        
+                        else if(smt.value < 3){
+                            alert("Mahasiswa belum bisa mengajukan peminatan! harus semester 2 keatas")
+                        }
+
+                        else{
+						  alert("Masukkan Tahun Anda Salah!\nFormat wajib angka!");
+						  tahun.value="";
+						  tahun.focus();
+						  return false;
+						}
+						
+					}else{
+					  alert("Masukkan Nama Anda Salah!\nFormat wajib huruf!");
+					  nama.value="";
+					  nama.focus();
+					  return false;
+					}
+				}else{
+				  alert("Masukkan nim Anda Salah!\nFormat wajib angka!");
+				  nim.value="";
+				  nim.focus();
+				  return false;
+				}
+				
+			}else{
+			  alert("Masukkan Kosong! Mohon Isi Terlebih dahulu inputan");
+			  nim.value="";
+			  nama.value="";
+			  smt.value="";
+			  prodi.value="";
+			  mk.value="";
+			  nim.focus();
+			  return false;
+			}
+	}
+
+    window.addEventListener('load', function() {
+        const loader = document.getElementById('loader');
+        loader.style.opacity = '0'; // Mengatur opacity menjadi 0 untuk animasi smooth
+        setTimeout(function() {
+            loader.style.display = 'none'; // Menghilangkan loader setelah animasi smooth selesai
+        }, 500); // Menunggu 500ms (0.5 detik) sebelum menghilangkan loader
+    });
+</script>
+</html>

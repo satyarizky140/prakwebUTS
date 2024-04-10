@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    nama : <input type="text" id="nama">
+    <br>
+    umur : <input type="text" id="umur">
+    <br>
+    JK : <input type="text" name="" id="jk">
+    <br>
+    <input type="submit" onclick="kirim()">
+</body>
+<script>
+    function kirim() {
+        var nama = document.getElementById("nama").value;
+        var umur = document.getElementById("umur").value;
+        var kelamin = document.getElementById("jk").value;
+        if (nama != '' && umur != '' && kelamin != '') {
+            alert("pengisian berhasil");
+            let url = "jendela.html?nama=" + nama + "&umur=" + umur + "&kelamin=" + kelamin;
+            window.open(url, "_blank", "width=300,height=250");
+        }
+    }
+</script>
+</html>

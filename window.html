@@ -1,0 +1,69 @@
+<!--Nama : Muhammad Satya Rizky Saputa
+    NIM  : 2210512001-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hasil Pengajuan Peminatan Mahasiswa</title>
+  </head>
+  <body>
+    <fieldset>
+      <img src="upnvj.png" width="20px" height="20px"/>
+      <legend>Hasil Pengajuan Peminatan Mahasiswa</legend>
+      <p id="hasil"></p>
+      
+      Mata Kuliah yang dipilih:
+      <ul id="list_mk"></ul>
+      
+      <p id="jumlah_sks"></p>
+    </fieldset>
+    
+    <script>
+      let urlParams = new URLSearchParams(window.location.search);
+      let nim = urlParams.get("nim");
+      let nama = urlParams.get("nama");
+      let angkatan = urlParams.get("angkatan");
+      let prodi = urlParams.get("prodi");
+      let mk = urlParams.getAll("mk"); // Menggunakan getAll untuk mendapatkan semua nilai mk
+      let semesterSekarang = parseInt(urlParams.get("smt")); // Mengambil nilai semester dari URL dan mengonversi ke integer
+      
+      let tampung = mk; // Menggunakan nilai mk langsung tanpa perlu memisahkannya
+      
+      const list_mk = document.getElementById('list_mk');
+      
+      
+      tampung.forEach((item) => {
+        let li = document.createElement("li");
+        li.innerText = item;
+        
+        list_mk.appendChild(li);
+      })
+      
+      class Tahun {
+        constructor() {
+        }
+        
+        getTahun(semesterSekarang) {
+          let tahunS = 2024; // Tahun ini statis, sesuaikan sesuai kebutuhan
+          let tahun;
+          if (semesterSekarang % 2 === 0) {
+            tahun = tahunS - (semesterSekarang/2);
+          } else {
+            semesterSekarang = semesterSekarang - 1;
+            tahun = tahunS - (semesterSekarang/2);
+          }
+          return tahun;
+        }
+      }
+
+      let mySemester = new Tahun();
+      let tahunMasuk = mySemester.getTahun(semesterSekarang);
+      
+      let element = document.getElementById("hasil");
+      
+      if (element !== null) {
+        element.innerHTML = 
+          "Nim : <b>" + nim +"</b>, <br/>Nama : <b>" + nama +"</b>, </br>Program Studi: <b>" + prodi +"</b>, <br/>Tahun Masuk:<b>"+ tahunMasuk +"</b>";
+      }
+    </script>
+  </body>
+</html>
